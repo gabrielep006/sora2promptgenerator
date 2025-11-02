@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Sora 2 Prompt Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f8f8f8; padding: 24px; }
+    label, select, input, textarea { margin: 6px 0; width: 100%; }
+    .prompt-box { background: #fff; border-radius: 7px; padding: 18px; margin-top: 20px; box-shadow: 0 2px 8px #eee; }
+    button { background: #337ab7; color: #fff; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;}
+    button:hover { background: #23527c; }
+  </style>
+</head>
+<body>
+  <h2>🔹 Sora 2 Prompt Generator 🔹</h2>
+  <form id="promptForm">
+    <label for="style">Stile/Genere:</label>
+    <select id="style">
+      <option>Cinematico</option>
+      <option>Anime</option>
+      <option>Found Footage</option>
+      <option>UGC/Influencer</option>
+      <option>Horror</option>
+      <option>Commessa</option>
+      <option>Fantasy</option>
+      <option>Futuristico</option>
+      <option>Documentario</option>
+    </select>
+
+    <label for="setting">Ambiente:</label>
+    <select id="setting">
+      <option>Cucina</option>
+      <option>Soggiorno</option>
+      <option>Scuola</option>
+      <option>Centro città</option>
+      <option>Studio</option>
+      <option>Spazio</option>
+      <option>Veicolo</option>
+      <option>Altro</option>
+    </select>
+
+    <label for="subject">Soggetto principale:</label>
+    <select id="subject">
+      <option>Persona</option>
+      <option>Animale</option>
+      <option>Robot</option>
+      <option>Influencer</option>
+      <option>Bambino</option>
+      <option>Oggetto</option>
+    </select>
+
+    <label for="mood">Mood/Tono:</label>
+    <select id="mood">
+      <option>Energico</option>
+      <option>Calmo</option>
+      <option>Drammatico</option>
+      <option>Romantico</option>
+      <option>Misterioso</option>
+      <option>Comico</option>
+      <option>Lussuoso</option>
+    </select>
+
+    <label for="camera">Inquadratura iniziale:</label>
+    <select id="camera">
+      <option>Piano medio</option>
+      <option>Primo piano</option>
+      <option>Campo lungo</option>
+      <option>Dettaglio</option>
+      <option>Soggettiva</option>
+      <option>Dall'alto</option>
+      <option>Steadicam</option>
+      <option>Dolly</option>
+    </select>
+
+    <label for="actions">Azioni principali (descrivi i beat o i gesti):</label>
+    <input id="actions" placeholder="Es: sorride, prepara il pranzo, dice 'Pronti a mangiare?'" />
+
+    <label for="audio">Audio/ambientazione sonora:</label>
+    <input id="audio" placeholder="Es: rumori di stoviglie, voce in italiano" />
+
+    <label for="quality">Livello produttivo:</label>
+    <select id="quality">
+      <option>Raw</option>
+      <option>Balanced</option>
+      <option>Cinematic</option>
+      <option>Ultra</option>
+    </select>
+
+    <label for="lighting">Palette/Illuminazione:</label>
+    <input id="lighting" placeholder="Es: luce calda diffusa, neon colorati" />
+
+    <label for="dialogue">Dialogo (sempre in italiano):</label>
+    <input id="dialogue" placeholder='Es: L'influencer dice: "Pronti a mangiare?"' />
+
+    <button type="button" onclick="generatePrompt()">Genera Prompt</button>
+  </form>
+
+  <div class="prompt-box" id="result"></div>
+
+  <script>
+    function generatePrompt() {
+      const s = id => document.getElementById(id).value;
+      let prompt = `${s('style')}, ${s('setting').toLowerCase()} illuminata da ${s('lighting') || 'luce naturale'}. `;
+      prompt += `Un/una ${s('subject').toLowerCase()} `;
+      prompt += `${s('actions') ? s('actions') : 'agisce nella scena'}, mood ${s('mood').toLowerCase()}. `;
+      prompt += `Inquadratura: ${s('camera').toLowerCase()}. `;
+      prompt += `Audio: ${s('audio') || 'audio ambientale'}, dialoghi sempre in italiano. `;
+      if(s('dialogue')) prompt += `Dialogo: ${s('dialogue')}. `;
+      prompt += `Livello produttivo: ${s('quality')}. `;
+      prompt += `Coerenza: mantieni personaggi, ambiente e tono costanti tra le generazioni.`;
+      document.getElementById("result").innerText = prompt;
+    }
+  </script>
+</body>
+</html>
